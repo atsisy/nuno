@@ -13,5 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\nenfu">
+      <UniqueIdentifier>{66ddd07d-04b8-42f9-8adc-1097cacdc77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\callback">
+      <UniqueIdentifier>{f328b6b1-0a73-4b12-9787-a40610adbdf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\device_tracker">
+      <UniqueIdentifier>{bbab6582-8998-4f03-8917-d38c539039f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\general">
+      <UniqueIdentifier>{cb50e448-460d-4330-99c4-a8d8b8643c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\nf">
+      <UniqueIdentifier>{407a6a2c-80ca-4223-aa9d-139a2184f568}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="display.cpp">
+      <Filter>Source Files\callback</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>Source Files\callback</Filter>
+    </ClCompile>
+    <ClCompile Include="idle_callback.cpp">
+      <Filter>Source Files\callback</Filter>
+    </ClCompile>
+    <ClCompile Include="low_level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>Source Files\device_tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="device_manager.cpp">
+      <Filter>Source Files\device_tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="nf_manager.cpp">
+      <Filter>Source Files\nf</Filter>
+    </ClCompile>
+    <ClCompile Include="glut_pure_callback.cpp">
+      <Filter>Source Files\callback</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
+    <ClInclude Include="callback.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
+    <ClInclude Include="device_tracker.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
+    <ClInclude Include="int_types.hpp">
+      <Filter>Header Files\general</Filter>
+    </ClInclude>
+    <ClInclude Include="nf_manager.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
