@@ -57,6 +57,9 @@
     <ClCompile Include="glut_pure_callback.cpp">
       <Filter>Source Files\callback</Filter>
     </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>Source Files\device_tracker</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp">

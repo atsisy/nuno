@@ -126,6 +126,7 @@
     <ClCompile Include="display.cpp" />
     <ClCompile Include="glut_pure_callback.cpp" />
     <ClCompile Include="idle_callback.cpp" />
+    <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="low_level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />

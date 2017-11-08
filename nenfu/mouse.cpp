@@ -77,6 +77,8 @@ namespace nf
 		Point3D<double> distance = minimum_scroll_distance<double>((Point3D<double>(mouse_point_flag[MOUSE_DRAGGING_PRESENT_POINT] - point)));
 
 		glTranslated(-distance.get_x(), distance.get_y(), distance.get_z());
+		//glRotated(0.5, -distance.get_x(), distance.get_y(), distance.get_z());
+
 		glutPostRedisplay();
 		mouse_point_flag[MOUSE_DRAGGING_PRESENT_POINT] = point;
 

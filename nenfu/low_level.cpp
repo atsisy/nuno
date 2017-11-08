@@ -34,6 +34,16 @@ void mouse_moving_event(int x, int y)
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_moving(x, y);
 }
 
+void keyboard_key_down(unsigned char ascii_key_code, int x, int y)
+{
+	nf_manager->get_device_tracker_manager()->get_keyboard_tracker().recieve_key_down_signal(ascii_key_code);
+}
+
+void keyboard_key_up(unsigned char ascii_key_code, int x, int y)
+{
+	nf_manager->get_device_tracker_manager()->get_keyboard_tracker().recieve_key_up_signal(ascii_key_code);
+}
+
 void register_glut_call_back()
 {
 	/*
@@ -60,5 +70,15 @@ void register_glut_call_back()
 	* マウス移動時コールバック登録
 	*/
 	glutPassiveMotionFunc(mouse_moving_event);
+
+	/*
+	* キーボードが押されたときのコールバック登録
+	*/
+	glutKeyboardFunc(keyboard_key_down);
+
+	/*
+	* キーボードが離されたときのコールバック登録
+	*/
+	glutKeyboardUpFunc(keyboard_key_up);
 
 }

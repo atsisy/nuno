@@ -46,7 +46,7 @@ namespace nf
 		template <typename T>
 		T binary(T value, T return_value)
 		{
-			return value != 0 ? return_value * (value < 0 ? -1 : 1) : 0;
+			return value != 0 ? (return_value * (value < 0 ? -1 : 1)) : 0;
 		}
 
 
@@ -63,10 +63,29 @@ namespace nf
 
 	};
 
+	class KeyboardTracker : public NFMChildren {
+
+	private:
+
+		std::array<bool, 256> key_table;
+
+
+	public:
+
+		KeyboardTracker(NFManager *manager);
+		~KeyboardTracker();
+
+		void recieve_key_down_signal(unsigned char ascii_key_code);
+		void recieve_key_up_signal(unsigned char ascii_key_code);
+		bool is_down(unsigned char ascii_key_code);
+
+	};
+
 	class DeviceTrackerManager {
 
 	private:
 
+		KeyboardTracker keyboard_tracker;
 		MouseTracker mouse_tracker;
 
 
@@ -76,6 +95,7 @@ namespace nf
 		~DeviceTrackerManager();
 
 		MouseTracker &get_mouse_tracker();
+		KeyboardTracker &get_keyboard_tracker();
 
 	};
 

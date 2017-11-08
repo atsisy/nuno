@@ -4,10 +4,15 @@
 namespace nf
 {
 	DeviceTrackerManager::DeviceTrackerManager(NFManager *manager)
-		: mouse_tracker(manager) {}
+		: keyboard_tracker(manager), mouse_tracker(manager) {}
 
 	DeviceTrackerManager::~DeviceTrackerManager()
 	{}
+
+	KeyboardTracker &DeviceTrackerManager::get_keyboard_tracker()
+	{
+		return keyboard_tracker;
+	}
 
 	MouseTracker &DeviceTrackerManager::get_mouse_tracker()
 	{
