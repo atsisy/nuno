@@ -5,6 +5,7 @@
 #include "nf_manager.hpp"
 #include <array>
 #include <iostream>
+#include <unordered_map>
 
 namespace nf
 {
@@ -78,6 +79,11 @@ namespace nf
 		void recieve_key_down_signal(unsigned char ascii_key_code);
 		void recieve_key_up_signal(unsigned char ascii_key_code);
 		bool is_down(unsigned char ascii_key_code);
+
+		bool is_shift_down();
+		bool is_ctrl_down();
+		bool is_alt_down();
+
 
 	};
 

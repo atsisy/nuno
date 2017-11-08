@@ -1,4 +1,5 @@
 #include "device_tracker.hpp"
+#include <GL/glut.h>
 
 namespace nf
 {
@@ -30,5 +31,19 @@ namespace nf
 		return key_table[ascii_key_code];
 	}
 
+	bool KeyboardTracker::is_shift_down()
+	{
+		return glutGetModifiers() & GLUT_ACTIVE_SHIFT;
+	}
+
+	bool KeyboardTracker::is_ctrl_down()
+	{
+		return glutGetModifiers() & GLUT_ACTIVE_CTRL;
+	}
+
+	bool KeyboardTracker::is_alt_down()
+	{
+		return glutGetModifiers() & GLUT_ACTIVE_ALT;
+	}
 
 }
