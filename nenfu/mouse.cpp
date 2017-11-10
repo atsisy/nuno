@@ -39,8 +39,14 @@ namespace nf
 		Point2D<int> point(x, y);
 		switch (state)
 		{
-		case GLUT_DOWN: mouse_point_flag[MOUSE_LEFT_DOWN_POINT] = point; break;
-		case GLUT_UP: mouse_point_flag[MOUSE_LEFT_UP_POINT] = point; break;
+		case GLUT_DOWN: 
+			mouse_point_flag[MOUSE_LEFT_DOWN_POINT] = point; 
+			glutSetCursor(GLUT_CURSOR_CROSSHAIR); 
+			break;
+		case GLUT_UP:
+			mouse_point_flag[MOUSE_LEFT_UP_POINT] = point;
+			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+			break;
 		default:
 			break;
 		}
@@ -88,6 +94,34 @@ namespace nf
 		glutPostRedisplay();
 		mouse_point_flag[MOUSE_DRAGGING_PRESENT_POINT] = point;
 
+	}
+
+	void MouseTracker::mouse_wheeling(int wheel_flag, int direction, int x, int y)
+	{
+		if (manager->get_device_tracker_manager()->get_keyboard_tracker().is_shift_down())
+		{
+			if (direction == 1)
+			{
+				glRotated(0, 0, 0, 1);
+			}
+			else
+			{
+				glRotated(0, 0, 0, -1);
+			}
+		}
+		else
+		{
+			if (direction == 1)
+			{
+				glTranslated(0, 0, 1);
+			}
+			else
+			{
+				glTranslated(0, 0, -1);
+			}
+		}
+
+		glutPostRedisplay();
 	}
 
 	void MouseTracker::mouse_moving(int x, int y)

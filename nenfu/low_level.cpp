@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #include "callback.hpp"
 #include "device_tracker.hpp"
 
@@ -32,6 +33,11 @@ void mouse_dragging_event(int x, int y)
 void mouse_moving_event(int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_moving(x, y);
+}
+
+void mouse_wheeling_event(int wheel_flag, int direction, int x, int y)
+{
+	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_wheeling(wheel_flag, direction, x, y);
 }
 
 void keyboard_key_down(unsigned char ascii_key_code, int x, int y)
@@ -70,6 +76,11 @@ void register_glut_call_back()
 	* マウス移動時コールバック登録
 	*/
 	glutPassiveMotionFunc(mouse_moving_event);
+
+	/*
+	* マウススクロール時のコールバック登録
+	*/
+	glutMouseWheelFunc(mouse_wheeling_event);
 
 	/*
 	* キーボードが押されたときのコールバック登録

@@ -5,7 +5,6 @@
 #include "nf_manager.hpp"
 #include <array>
 #include <iostream>
-#include <unordered_map>
 
 namespace nf
 {
@@ -58,6 +57,7 @@ namespace nf
 
 		void mouse_dragging(int x, int y);
 		void mouse_moving(int x, int y);
+		void mouse_wheeling(int wheel_flag, int direction, int x, int y);
 
 		void translation_glut_message_button(int button, int state, int x, int y);
 		Point2D<int> access(MouseEventPointEnum flag) const;
