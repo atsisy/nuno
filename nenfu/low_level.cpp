@@ -46,20 +46,6 @@ void idle()
 void mouse_button_event(int button, int state, int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().translation_glut_message_button(button, state, x, y);
-
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
-
-	if (state == GLUT_DOWN && (button == GLUT_LEFT_BUTTON))
-		io.MouseDown[0] = true;
-	else
-		io.MouseDown[0] = false;
-
-	if (state == GLUT_DOWN && (button == GLUT_RIGHT_BUTTON))
-		io.MouseDown[1] = true;
-	else
-		io.MouseDown[1] = false;
-
 	glutPostRedisplay();
 }
 
@@ -77,6 +63,7 @@ void mouse_moving_event(int x, int y)
 void mouse_wheeling_event(int wheel_flag, int direction, int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_wheeling(wheel_flag, direction, x, y);
+	glutPostRedisplay();
 }
 
 void keyboard_key_down(unsigned char ascii_key_code, int x, int y)

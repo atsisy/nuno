@@ -33,18 +33,37 @@ namespace nf
 		imgui_io.MousePos = ImVec2((float)x, (float)y);
 	}
 
-	void MouseTracker::update_imgui_mouse_wheeling_status(int direction, int x, int y)
+	void MouseTracker::update_imgui_mouse_wheeling_status(ImGuiIO imgui_io, int direction, int x, int y)
 	{
-		ImGuiIO &io = ImGui::GetIO();
-		update_imgui_mouse_position(io, x, y);
-
 		if (direction > 0)
 		{
-			io.MouseWheel = 1.0;
+			imgui_io.MouseWheel = 1.0;
 		}
 		else if (direction < 0)
 		{
-			io.MouseWheel = -1.0;
+			imgui_io.MouseWheel = -1.0;
+		}
+	}
+
+	void MouseTracker::update_imgui_mouse_button_status(ImGuiIO imgui_io, int button, int state)
+	{
+
+		if (state == GLUT_DOWN && (button == GLUT_LEFT_BUTTON))
+		{
+			imgui_io.MouseDown[0] = true;
+		}
+		else
+		{
+			imgui_io.MouseDown[0] = false;
+		}
+
+		if (state == GLUT_DOWN && (button == GLUT_RIGHT_BUTTON))
+		{
+			imgui_io.MouseDown[1] = true;
+		}
+		else
+		{
+			imgui_io.MouseDown[1] = false;
 		}
 	}
 
@@ -54,6 +73,11 @@ namespace nf
 	*/
 	void MouseTracker::translation_glut_message_button(int button, int state, int x, int y)
 	{
+
+		ImGuiIO &io = ImGui::GetIO();
+		update_imgui_mouse_position(io, x, y);
+		update_imgui_mouse_button_status(io, button, state);
+
 		switch (button)
 		{
 		case GLUT_LEFT_BUTTON: translation_glut_message_left_state(state, x, y); break;
@@ -160,9 +184,14 @@ namespace nf
 
 	}
 
+	/*
+	* マウスのスクロールを処理するメソッド
+	*/
 	void MouseTracker::mouse_wheeling(int wheel_flag, int direction, int x, int y)
 	{
-		update_imgui_mouse_wheeling_status(direction, x, y);
+		ImGuiIO &imgui_io = ImGui::GetIO();
+		update_imgui_mouse_position(imgui_io, x, y);
+		update_imgui_mouse_wheeling_status(imgui_io, direction, x, y);
 
 		if (manager->get_device_tracker_manager()->get_keyboard_tracker().is_shift_down())
 		{
@@ -186,8 +215,6 @@ namespace nf
 				glTranslated(0, 0, -1);
 			}
 		}
-
-		glutPostRedisplay();
 	}
 
 	void MouseTracker::mouse_moving(int x, int y)

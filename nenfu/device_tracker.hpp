@@ -32,7 +32,8 @@ namespace nf
 		void update_imgui_mouse_position(int x, int y);
 		void update_imgui_mouse_position(ImGuiIO &imgui_io, int x, int y);
 
-		void update_imgui_mouse_wheeling_status(int direction, int x, int y);
+		void update_imgui_mouse_wheeling_status(ImGuiIO imgui_io, int direction, int x, int y);
+		void update_imgui_mouse_button_status(ImGuiIO imgui_io, int button, int state);
 
 		void translation_glut_message_left_state(int state, int x, int y);
 		void translation_glut_message_middle_state(int state, int x, int y);
