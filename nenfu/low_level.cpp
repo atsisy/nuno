@@ -66,33 +66,17 @@ void mouse_button_event(int button, int state, int x, int y)
 void mouse_dragging_event(int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_dragging(x, y);
-	
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
 }
 
 void mouse_moving_event(int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_moving(x, y);
+	glutPostRedisplay();
 }
 
 void mouse_wheeling_event(int wheel_flag, int direction, int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_wheeling(wheel_flag, direction, x, y);
-	ImGuiIO& io = ImGui::GetIO();
-	io.MousePos = ImVec2((float)x, (float)y);
-	if (direction > 0)
-	{
-		// Zoom in
-		io.MouseWheel = 1.0;
-	}
-	else if (direction < 0)
-	{
-		// Zoom out
-		io.MouseWheel = -1.0;
-	}
-
-	glutPostRedisplay();
 }
 
 void keyboard_key_down(unsigned char ascii_key_code, int x, int y)
@@ -114,8 +98,10 @@ void register_glut_call_back()
 
 	/*
 	* 待機時コールバック登録
+	* 今のところ特にやることがないのでコメントアウト
+	* これを走らせると、idle関数が呼ばれまくってCPU使用率がMAXになるってのもある
 	*/
-	glutIdleFunc(idle);
+	//glutIdleFunc(idle);
 
 	/*
 	* マウスボタンイベントコールバック登録

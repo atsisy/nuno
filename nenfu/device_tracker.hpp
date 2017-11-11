@@ -5,6 +5,7 @@
 #include "nf_manager.hpp"
 #include <array>
 #include <iostream>
+#include <imgui.h>
 
 namespace nf
 {
@@ -28,6 +29,10 @@ namespace nf
 
 		std::array<Point2D<int>, MOUSE_EVENT_POINT_ENUM_SIZE> mouse_point_flag;
 
+		void update_imgui_mouse_position(int x, int y);
+		void update_imgui_mouse_position(ImGuiIO &imgui_io, int x, int y);
+
+		void update_imgui_mouse_wheeling_status(int direction, int x, int y);
 
 		void translation_glut_message_left_state(int state, int x, int y);
 		void translation_glut_message_middle_state(int state, int x, int y);
@@ -69,6 +74,8 @@ namespace nf
 	private:
 
 		std::array<bool, 256> key_table;
+
+		void send_keycode_to_imgui(unsigned char key_code);
 
 
 	public:

@@ -2,6 +2,7 @@
 #include "callback.hpp"
 #include "core.hpp"
 #include <GL/glut.h>
+#include <imgui.h>
 
 namespace nf
 {
@@ -12,6 +13,40 @@ namespace nf
 
 	MouseTracker::~MouseTracker()
 	{}
+
+
+	/*
+	* imgui内のマウスカーソルの座標を更新するメソッド
+	*/
+	void MouseTracker::update_imgui_mouse_position(int x, int y)
+	{
+		ImGuiIO &io = ImGui::GetIO();
+		io.MousePos = ImVec2((float)x, (float)y);
+	}
+
+	/*
+	* imgui内のマウスカーソルの座標を更新するメソッド
+	* 第一引数にImGuiIO &imgui_ioを取り、無駄なImGuiIO取得処理を省く
+	*/
+	void MouseTracker::update_imgui_mouse_position(ImGuiIO &imgui_io, int x, int y)
+	{
+		imgui_io.MousePos = ImVec2((float)x, (float)y);
+	}
+
+	void MouseTracker::update_imgui_mouse_wheeling_status(int direction, int x, int y)
+	{
+		ImGuiIO &io = ImGui::GetIO();
+		update_imgui_mouse_position(io, x, y);
+
+		if (direction > 0)
+		{
+			io.MouseWheel = 1.0;
+		}
+		else if (direction < 0)
+		{
+			io.MouseWheel = -1.0;
+		}
+	}
 
 	/*
 	* translation_glut_message_buttonメソッド
@@ -83,26 +118,52 @@ namespace nf
 	*/
 	void MouseTracker::mouse_dragging(int x, int y)
 	{
+		/*
+		* imgui内のマウス座標を更新
+		*/
+		update_imgui_mouse_position(x, y);
+
+		/*
+		* 現在の位置を保持
+		*/
 		Point2D<int> point(x, y);
 
+		/*
+		* 最後に記録したマウスの座標との差分を1,0に変換し、それをdistanceに格納
+		*/
 		Point3D<double> distance = minimum_scroll_distance<double>((Point3D<double>(mouse_point_flag[MOUSE_DRAGGING_PRESENT_POINT] - point)));
 
 		if (manager->get_device_tracker_manager()->get_keyboard_tracker().is_shift_down())
 		{
+			/*
+			* Shiftキーが押されていた場合はRotated
+			*/
 			glRotated(ROTATE_MINIMUM_ANGLE, -distance.get_y(), distance.get_z(), -distance.get_x());
 		}
 		else if(manager->get_device_tracker_manager()->get_keyboard_tracker().is_ctrl_down())
 		{
+			/*
+			* Ctrlキーが押されていた場合はTranslated
+			*/
 			glTranslated(-distance.get_x(), distance.get_y(), distance.get_z());
 		}
 
-		glutPostRedisplay();
+		/*
+		* 座標を更新
+		*/
 		mouse_point_flag[MOUSE_DRAGGING_PRESENT_POINT] = point;
+
+		/*
+		* 再描画を行う
+		*/
+		glutPostRedisplay();
 
 	}
 
 	void MouseTracker::mouse_wheeling(int wheel_flag, int direction, int x, int y)
 	{
+		update_imgui_mouse_wheeling_status(direction, x, y);
+
 		if (manager->get_device_tracker_manager()->get_keyboard_tracker().is_shift_down())
 		{
 			if (direction == 1)
