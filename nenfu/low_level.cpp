@@ -2,8 +2,16 @@
 #include <GL/freeglut.h>
 #include "callback.hpp"
 #include "device_tracker.hpp"
+#include "core.hpp"
+#include <imgui_impl_glut.h>
+#include <imgui.h>
 
 extern nf::NFManager *nf_manager;
+
+
+bool show_test_window = true;
+bool show_another_window = false;
+
 
 void display()
 {
@@ -11,6 +19,26 @@ void display()
 	* 描画処理呼び出し
 	*/
 	nf_manager->get_display_callback()->run();
+
+	ImGui_ImplGLUT_NewFrame(WINDOW_WIDTH, WINDOW_HEIGHT, 1.0 / 60);
+
+	// 1. Show a simple window
+	// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
+	{
+		static float f = 0.0f;
+		ImGui::Text("Hello, world!");
+		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+		if (ImGui::Button("Test Window")) show_test_window ^= 1;
+		if (ImGui::Button("Another Window")) show_another_window ^= 1;
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	}
+
+	ImGui::Render();
+
+
+	// カラーバッファの入れ替え
+	glutSwapBuffers();
+
 }
 
 void idle()
@@ -23,11 +51,29 @@ void idle()
 void mouse_button_event(int button, int state, int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().translation_glut_message_button(button, state, x, y);
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
+
+	if (state == GLUT_DOWN && (button == GLUT_LEFT_BUTTON))
+		io.MouseDown[0] = true;
+	else
+		io.MouseDown[0] = false;
+
+	if (state == GLUT_DOWN && (button == GLUT_RIGHT_BUTTON))
+		io.MouseDown[1] = true;
+	else
+		io.MouseDown[1] = false;
+
+	glutPostRedisplay();
 }
 
 void mouse_dragging_event(int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_dragging(x, y);
+	
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
 }
 
 void mouse_moving_event(int x, int y)
@@ -38,6 +84,20 @@ void mouse_moving_event(int x, int y)
 void mouse_wheeling_event(int wheel_flag, int direction, int x, int y)
 {
 	nf_manager->get_device_tracker_manager()->get_mouse_tracker().mouse_wheeling(wheel_flag, direction, x, y);
+	ImGuiIO& io = ImGui::GetIO();
+	io.MousePos = ImVec2((float)x, (float)y);
+	if (direction > 0)
+	{
+		// Zoom in
+		io.MouseWheel = 1.0;
+	}
+	else if (direction < 0)
+	{
+		// Zoom out
+		io.MouseWheel = -1.0;
+	}
+
+	glutPostRedisplay();
 }
 
 void keyboard_key_down(unsigned char ascii_key_code, int x, int y)

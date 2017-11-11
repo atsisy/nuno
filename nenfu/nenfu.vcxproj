@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\devel\freeglut-3.0.0\install\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\devel\imgui-freeglut_examples\include;C:\devel\freeglut-3.0.0\install\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\devel\freeglut-3.0.0\install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\devel\freeglut-3.0.0\install\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\devel\imgui-freeglut_examples\include;C:\devel\freeglut-3.0.0\install\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\devel\freeglut-3.0.0\install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,6 +122,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\devel\imgui-freeglut_examples\src\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\devel\imgui-freeglut_examples\src\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\devel\imgui-freeglut_examples\src\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\devel\imgui-freeglut_examples\src\imgui_impl_glut.cpp" />
     <ClCompile Include="device_manager.cpp" />
     <ClCompile Include="display.cpp" />
     <ClCompile Include="glut_pure_callback.cpp" />

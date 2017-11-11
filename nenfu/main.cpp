@@ -3,6 +3,7 @@
 #include "callback.hpp"
 #include "device_tracker.hpp"
 #include "nf_manager.hpp"
+#include <imgui_impl_glut.h>
 
 nf::NFManager *nf_manager;
 
@@ -15,7 +16,7 @@ int main(int argc, char *argv[])
 	glutInit(&argc, argv);//環境の初期化
 
 	glutInitWindowPosition(250, 250);//ウィンドウの位置の指定
-	glutInitWindowSize(600, 600); //ウィンドウサイズの指定
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT); //ウィンドウサイズの指定
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);//ディスプレイモードの指定
 	glutCreateWindow(MAIN_WINDOW_NAME);  //ウィンドウの作成
@@ -44,4 +45,8 @@ void Initialize(void)
 		0.0, -700.0, 150.0, // 視点の位置x,y,z;
 		0.0, 100.0, 0.0,   // 視界の中心位置の参照点座標x,y,z
 		0.0, 0.0, 1.0);  //視界の上方向のベクトルx,y,z
+
+	
+	ImGui_ImplGLUT_Init();
+
 }

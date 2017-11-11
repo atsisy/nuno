@@ -61,16 +61,11 @@ namespace nf
 	{
 		target_function = [this]()
 		{
-
 			// バッファの消去
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 			// グリッドの描画
 			draw_grid();
-
-			// カラーバッファの入れ替え
-			glutSwapBuffers();
 		};
 	}
 
