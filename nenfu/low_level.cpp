@@ -3,6 +3,7 @@
 #include "callback.hpp"
 #include "device_tracker.hpp"
 #include "core.hpp"
+#include "sub_window.hpp"
 #include <imgui_impl_glut.h>
 #include <imgui.h>
 
@@ -22,16 +23,10 @@ void display()
 
 	ImGui_ImplGLUT_NewFrame(WINDOW_WIDTH, WINDOW_HEIGHT, 1.0 / 60);
 
-	// 1. Show a simple window
-	// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
-	{
-		static float f = 0.0f;
-		ImGui::Text("Hello, world!");
-		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-		if (ImGui::Button("Test Window")) show_test_window ^= 1;
-		if (ImGui::Button("Another Window")) show_another_window ^= 1;
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	}
+	
+	static nf::StatusDisplay window("Status", 300, 300, 10, 10);
+
+	window.render();
 
 	ImGui::Render();
 

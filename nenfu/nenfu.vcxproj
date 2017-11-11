@@ -136,6 +136,8 @@
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="nf_manager.cpp" />
+    <ClCompile Include="status_display_window.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callback.hpp" />
@@ -143,6 +145,7 @@
     <ClInclude Include="device_tracker.hpp" />
     <ClInclude Include="int_types.hpp" />
     <ClInclude Include="nf_manager.hpp" />
+    <ClInclude Include="sub_window.hpp" />
     <ClInclude Include="utility.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

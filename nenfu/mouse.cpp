@@ -76,6 +76,10 @@ namespace nf
 		}
 	}
 
+	/*
+	* マウスがドラッグされたときの処理
+	* 引数はマウスドラッグ時のマウス座標
+	*/
 	void MouseTracker::mouse_dragging(int x, int y)
 	{
 		Point2D<int> point(x, y);

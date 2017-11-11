@@ -31,6 +31,12 @@
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{0cb6601a-0791-45e4-86f0-37b0ab240431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{64726e02-2bfd-418a-81c8-8a13411ef415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{e37a2829-4074-4208-9de6-9477faa46356}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,6 +81,12 @@
     <ClCompile Include="..\..\..\..\..\..\devel\imgui-freeglut_examples\src\imgui_impl_glut.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="status_display_window.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp">
@@ -94,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="nf_manager.hpp">
       <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
+    <ClInclude Include="sub_window.hpp">
+      <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
