@@ -1,5 +1,6 @@
 #include "device_tracker.hpp"
 #include "callback.hpp"
+#include "core.hpp"
 #include <GL/glut.h>
 
 namespace nf
@@ -88,9 +89,9 @@ namespace nf
 
 		if (manager->get_device_tracker_manager()->get_keyboard_tracker().is_shift_down())
 		{
-			glRotated(0.5, -distance.get_x(), distance.get_y(), distance.get_z());
+			glRotated(ROTATE_MINIMUM_ANGLE, -distance.get_y(), distance.get_z(), -distance.get_x());
 		}
-		else
+		else if(manager->get_device_tracker_manager()->get_keyboard_tracker().is_ctrl_down())
 		{
 			glTranslated(-distance.get_x(), distance.get_y(), distance.get_z());
 		}
@@ -106,14 +107,14 @@ namespace nf
 		{
 			if (direction == 1)
 			{
-				glRotated(0, 0, 0, 1);
+				glRotated(ROTATE_MINIMUM_ANGLE, 0, 1, 0);
 			}
 			else
 			{
-				glRotated(0, 0, 0, -1);
+				glRotated(ROTATE_MINIMUM_ANGLE, 0, -1, 0);
 			}
 		}
-		else
+		else if(manager->get_device_tracker_manager()->get_keyboard_tracker().is_ctrl_down())
 		{
 			if (direction == 1)
 			{
