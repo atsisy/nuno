@@ -33,7 +33,7 @@ namespace nf
 		imgui_io.MousePos = ImVec2((float)x, (float)y);
 	}
 
-	void MouseTracker::update_imgui_mouse_wheeling_status(ImGuiIO imgui_io, int direction, int x, int y)
+	void MouseTracker::update_imgui_mouse_wheeling_status(ImGuiIO &imgui_io, int direction, int x, int y)
 	{
 		if (direction > 0)
 		{
@@ -45,7 +45,7 @@ namespace nf
 		}
 	}
 
-	void MouseTracker::update_imgui_mouse_button_status(ImGuiIO imgui_io, int button, int state)
+	void MouseTracker::update_imgui_mouse_button_status(ImGuiIO &imgui_io, int button, int state)
 	{
 
 		if (state == GLUT_DOWN && (button == GLUT_LEFT_BUTTON))
