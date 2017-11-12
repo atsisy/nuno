@@ -38,9 +38,9 @@ void Initialize(void)
 	glClearColor(1.0, 1.0, 1.0, 1.0); //背景色
 	glEnable(GL_DEPTH_TEST);//デプスバッファを使用：glutInitDisplayMode() で GLUT_DEPTH を指定する
 
-	nf_manager = new nf::NFManager;
+	nf_manager = new nf::NFManager(MAIN_WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0);
 
-	gluPerspective(30.0, (double)600 / (double)600, 0.1, 1000.0); //透視投影法の視体積gluPerspactive(th, w/h, near, far);
+	gluPerspective(30.0, (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT, 0.1, 1000.0); //透視投影法の視体積gluPerspactive(th, w/h, near, far);
 	gluLookAt(
 		0.0, -700.0, 150.0, // 視点の位置x,y,z;
 		0.0, 100.0, 0.0,   // 視界の中心位置の参照点座標x,y,z

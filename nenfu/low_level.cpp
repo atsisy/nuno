@@ -6,6 +6,7 @@
 #include "sub_window.hpp"
 #include <imgui_impl_glut.h>
 #include <imgui.h>
+#include <iostream>
 
 extern nf::NFManager *nf_manager;
 
@@ -21,12 +22,10 @@ void display()
 	*/
 	nf_manager->get_display_callback()->run();
 
-	ImGui_ImplGLUT_NewFrame(WINDOW_WIDTH, WINDOW_HEIGHT, 1.0 / 60);
+	ImGui_ImplGLUT_NewFrame(nf_manager->get_window_manager()->get_root_width(), nf_manager->get_window_manager()->get_root_height(), 1.0 / 60);
 
-	
-	static nf::StatusDisplay window("Status", 300, 300, 10, 10);
+	nf_manager->get_window_manager()->render_all_window();
 
-	window.render();
 
 	ImGui::Render();
 
@@ -76,6 +75,20 @@ void keyboard_key_up(unsigned char ascii_key_code, int x, int y)
 	nf_manager->get_device_tracker_manager()->get_keyboard_tracker().recieve_key_up_signal(ascii_key_code);
 }
 
+void resize(int w, int h)
+{
+	glViewport(0, 0, w, h);
+
+	/* 透視変換行列の設定 */
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	/* モデルビュー変換行列の設定 */
+	glMatrixMode(GL_MODELVIEW);
+
+	nf_manager->get_window_manager()->resize_root(w, h);
+}
+
 void register_glut_call_back()
 {
 	/*
@@ -111,6 +124,11 @@ void register_glut_call_back()
 	glutMouseWheelFunc(mouse_wheeling_event);
 
 	/*
+	* ウィンドウのりサイズ時に呼び出されるコールバック登録
+	*/
+	glutReshapeFunc(resize);
+
+	/*
 	* キーボードが押されたときのコールバック登録
 	*/
 	glutKeyboardFunc(keyboard_key_down);
@@ -119,5 +137,7 @@ void register_glut_call_back()
 	* キーボードが離されたときのコールバック登録
 	*/
 	glutKeyboardUpFunc(keyboard_key_up);
+
+	nf_manager->get_window_manager()->add(std::make_unique<nf::StatusDisplay>("Status", 300, 300, 10, 10));
 
 }
