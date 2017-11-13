@@ -29,24 +29,6 @@ namespace nf
 		glEnd();
 	}
 
-	void DisplayCallBack::look_from()
-	{
-		camera.look_from();
-	}
-	
-
-	void DisplayCallBack::move_camera(Camera3DPointType type, int x, int y, int z)
-	{
-		camera.move(type, x, y, z);
-		look_from();
-	}
-
-	void DisplayCallBack::move_camera(Camera3DPointType type, Point3D<double> point)
-	{
-		camera.move(type, point);
-		look_from();
-	}
-
 	/*
 	* DisplayCallBackクラス
 	* 公開メソッド
@@ -72,54 +54,36 @@ namespace nf
 	DisplayCallBack::~DisplayCallBack()
 	{}
 
+	void DisplayCallBack::camera_rotate(double angle, double x, double y, double z)
+	{
+		camera.rotate(angle, x, y, z);
+	}
+
+	void DisplayCallBack::camera_translate(double x, double y, double z)
+	{
+		camera.translate(x, y, z);
+	}
+
 	void DisplayCallBack::run()
 	{
 		target_function();
 	}
 
 	Camera::Camera()
-		: view_point(0.0, -700.0, 150.0), view_center_point(0.0, 100.0, 0.0), view_upper_vector(0.0, 0.0, 1.0) {}
+	{}
 
 	Camera::~Camera()
 	{}
 
-	void Camera::move(Camera3DPointType type, int x, int y, int z)
+
+	void Camera::rotate(double angle, double x, double y, double z)
 	{
-		Point3D<double> point(x, y, z);
-		switch (type)
-		{
-		case nf::VIEW_POINT: view_point += point; break;
-		case nf::VIEW_CENTER_POINT: view_center_point += point; break;
-		case nf::VIEW_UPPER_POINT: view_upper_vector += point; break;
-		default:
-			break;
-		}
+		glRotated(angle, x, y, z);
 	}
 
-	void Camera::move(Camera3DPointType type, Point3D<double> point)
+	void Camera::translate(double x, double y, double z)
 	{
-		switch (type)
-		{
-		case nf::VIEW_POINT: view_point += point; break;
-		case nf::VIEW_CENTER_POINT: view_center_point += point; break;
-		case nf::VIEW_UPPER_POINT: view_upper_vector += point; break;
-		default:
-			break;
-		}
+		glTranslated(x, y, z);
 	}
 
-	void Camera::look_from()
-	{
-		gluPerspective(30.0, (double)600 / (double)600, 0.1, 1000.0); //透視投影法の視体積gluPerspactive(th, w/h, near, far);
-		
-		gluLookAt(
-			view_point.get_x(), view_point.get_y(), view_point.get_z(),
-			view_center_point.get_x(), view_center_point.get_y(), view_center_point.get_z(),
-			view_upper_vector.get_x(), view_upper_vector.get_y(), view_upper_vector.get_z()
-		);
-
-		std::cout << view_point.get_x() << ":" << view_point.get_y() << ":" << view_point.get_z() << std::endl;
-		std::cout << view_center_point.get_x() << ":" << view_center_point.get_y() << ":" << view_center_point.get_z() << std::endl;
-
-	}
 }

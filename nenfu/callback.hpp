@@ -31,20 +31,14 @@ namespace nf
 
 	private:
 
-		Point3D<double> view_point;
-		Point3D<double> view_center_point;
-		Point3D<double> view_upper_vector;
-
-
 	public:
 
 		Camera();
 		~Camera();
 
-		void look_from();
+		void rotate(double angle, double x, double y, double z);
+		void translate(double x, double y, double z);
 
-		void move(Camera3DPointType type, int x, int y, int z);
-		void move(Camera3DPointType type, Point3D<double> point);
 
 	};
 
@@ -62,15 +56,15 @@ namespace nf
 		Camera camera;
 
 		void draw_grid();
-		void look_from();
 
 	public:
 
 		DisplayCallBack(nf::NFManager *nf_manager);
 		~DisplayCallBack();
 
-		void move_camera(Camera3DPointType type, int x, int y, int z);
-		void move_camera(Camera3DPointType type, Point3D<double> point);
+
+		void camera_rotate(double angle, double x, double y, double z);
+		void camera_translate(double x, double y, double z);
 
 		void run();
 

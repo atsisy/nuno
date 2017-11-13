@@ -162,14 +162,14 @@ namespace nf
 			/*
 			* Shiftキーが押されていた場合はRotated
 			*/
-			glRotated(ROTATE_MINIMUM_ANGLE, -distance.get_y(), distance.get_z(), -distance.get_x());
+			manager->get_display_callback()->camera_rotate(ROTATE_MINIMUM_ANGLE, -distance.get_y(), distance.get_z(), -distance.get_x());
 		}
 		else if(manager->get_device_tracker_manager()->get_keyboard_tracker().is_ctrl_down())
 		{
 			/*
 			* Ctrlキーが押されていた場合はTranslated
 			*/
-			glTranslated(-distance.get_x(), distance.get_y(), distance.get_z());
+			manager->get_display_callback()->camera_translate(-distance.get_x(), distance.get_y(), distance.get_z());
 		}
 
 		/*
@@ -197,22 +197,22 @@ namespace nf
 		{
 			if (direction == 1)
 			{
-				glRotated(ROTATE_MINIMUM_ANGLE, 0, 1, 0);
+				manager->get_display_callback()->camera_rotate(ROTATE_MINIMUM_ANGLE, 0, 1, 0);
 			}
 			else
 			{
-				glRotated(ROTATE_MINIMUM_ANGLE, 0, -1, 0);
+				manager->get_display_callback()->camera_rotate(ROTATE_MINIMUM_ANGLE, 0, -1, 0);
 			}
 		}
 		else if(manager->get_device_tracker_manager()->get_keyboard_tracker().is_ctrl_down())
 		{
 			if (direction == 1)
 			{
-				glTranslated(0, 0, 1);
+				manager->get_display_callback()->camera_translate(0, 0, 1);
 			}
 			else
 			{
-				glTranslated(0, 0, -1);
+				manager->get_display_callback()->camera_translate(0, 0, -1);
 			}
 		}
 	}
