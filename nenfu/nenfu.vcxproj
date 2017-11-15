@@ -146,6 +146,7 @@
     <ClInclude Include="core.hpp" />
     <ClInclude Include="device_tracker.hpp" />
     <ClInclude Include="int_types.hpp" />
+    <ClInclude Include="nenfu_object.hpp" />
     <ClInclude Include="nf_manager.hpp" />
     <ClInclude Include="sub_window.hpp" />
     <ClInclude Include="utility.hpp" />

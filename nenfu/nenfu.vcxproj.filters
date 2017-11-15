@@ -110,5 +110,8 @@
     <ClInclude Include="sub_window.hpp">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="nenfu_object.hpp">
+      <Filter>Header Files\nenfu</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
